@@ -13,15 +13,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
-
 class AuthController extends ApiController {
+
     private $em;
 
     public function __construct(EntityManagerInterface $em) {
         $this->em = $em;
     }
 
-    #[Route('/api/register', name: 'register', methods: ['POST'])]
+    #[Route('/register', name: 'register', methods: ['POST'])]
     public function register(Request $request, UserPasswordHasherInterface $encoder): JsonResponse {
         $request = $this->transformJsonBody($request);
         
@@ -44,8 +44,8 @@ class AuthController extends ApiController {
         return $this->respondWithSuccess(sprintf('User %s successfully created', $user->getUserIdentifier()));
     }
 
-    #[Route('/api/login_check', name: 'login_check', methods: ['POST'])]
-    public function getTokenUser(UserInterface $user, JWTTokenManagerInterface $JWTManager): JsonResponse {
+    #[Route('/auth', name: 'auth', methods: ['POST'])]
+    public function auth(UserInterface $user, JWTTokenManagerInterface $JWTManager): JsonResponse {
         return new JsonResponse(['token' => $JWTManager->create($user)]);
         // $JWTManager->create($user);
     }

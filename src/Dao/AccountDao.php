@@ -18,8 +18,8 @@ class AccountDao extends BaseDao {
         return $this->doSQL($sql, $params);
     }
 
-    public function accountDelete(iterable $values=[]){
+    public function accountDelete(iterable $params=[]){
         $sql = "DELETE FROM user_account WHERE id = :id";
-        return $this->doSQL($sql, $values);
+        return $this->doSQL($sql, $params);
     }
 }

@@ -12,15 +12,15 @@ security:
                 property: email
     firewalls:
         register:
-            pattern: ^/api/register
+            pattern: ^/register
             stateless: true
 
-        login:
-            pattern: ^/api/login_check
+        jwt_auth:
+            pattern: ^/auth
             stateless: true
             json_login:
                 username_path: email
-                check_path: /api/login_check
+                check_path: /auth
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
@@ -32,8 +32,8 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/api/register, roles: PUBLIC_ACCESS }
-        - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
+        - { path: ^/auth, roles: PUBLIC_ACCESS }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 
 

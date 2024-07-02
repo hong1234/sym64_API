@@ -13,10 +13,10 @@ class BookDao extends BaseDao {
         return $this->doQuery($sql);  // $result
     }
 
-    public function bookDelete(iterable $values=[]){
+    public function bookDelete(iterable $params=[]){
         $sql = "DELETE FROM reviews WHERE book_id = :id";
-        $this->doSQL($sql, $values);
+        $this->doSQL($sql, $params);
         $sql = "DELETE FROM books WHERE id = :id";
-        return $this->doSQL($sql, $values);
+        return $this->doSQL($sql, $params);
     }
 }
