@@ -4,10 +4,11 @@ namespace App\Dao;
 use Doctrine\DBAL\Connection;
 
 class BaseDao {
+    
     private $connection;
 
-    function __construct(Connection $connection) {
-        $this->connection = $connection;
+    function __construct(Connection $conn) {
+        $this->connection = $conn;
     }
 
     public function doQuery($sql, $parr=[]) {

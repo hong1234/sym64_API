@@ -4,7 +4,7 @@ namespace App\Dao;
 class BookDao extends BaseDao {
 
     public function bookInsert(iterable $params=[]){
-        $sql = "INSERT INTO books SET title = :title, content  = :content";
+        $sql = "INSERT INTO books SET title = :title, content = :content, created_on = NOW()";
         return $this->doSQL($sql, $params);
     }
 
