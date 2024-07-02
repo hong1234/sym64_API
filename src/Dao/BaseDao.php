@@ -21,11 +21,13 @@ class BaseDao {
         // return $result;
 
         // $resultSet = $this->conn->executeQuery($sql, $parr);
-        // return $resultSet;
-
-        // $row = $this->conn->executeQuery($sql, $parr)->fetchAssociative();
+        // $result_array = [];
+        // while ($row = $resultSet->fetchAssociative()){
+        //     $result_array[] = $row;
+        // }
 
         $result_array = $this->conn->executeQuery($sql, $parr)->fetchAllAssociative();
+
         return $result_array;
     }
 
@@ -35,6 +37,7 @@ class BaseDao {
         // return $rowCount;
 
         $rowCount = $this->conn->executeStatement($sql, $parr); // returns the affected rows count
+        
         return $rowCount;
     }
 }
