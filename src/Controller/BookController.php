@@ -33,12 +33,16 @@ class BookController extends AbstractController {
                     'content' => $data['content']
                 ]);
 
-                $rs["code"] = "200";
-                $rs["message"] = "{$rowCount} Book angelegt";
+                $rs = [
+                    "code"    => "200",
+                    "message" => "{$rowCount} Book angelegt"
+                ];
    
             } else {
-                $rs["code"] = "401";
-                $rs["message"] = "Input-parameters sind json-invalid";
+                $rs = [
+                    "code"    => "401",
+                    "message" => "Input-parameters sind json-invalid"
+                ];
             }
         }
         
@@ -47,20 +51,27 @@ class BookController extends AbstractController {
 
     #[Route('/books', name: 'book_all', methods: ['GET'])]
     public function bookAll() : JsonResponse { 
-        $rs = [];
-        $result_array = $this->bookDao->bookAll()->fetchAllAssociative();
-        $rs["code"] = "200";
-        $rs["data"] = $result_array;
+        
+        // $result_array = $this->bookDao->bookAll()->fetchAllAssociative();
+        $result_array = $this->bookDao->bookAll();
+
+        $rs = [
+            "code" => "200",
+            "data" => $result_array
+        ];
         return $this->json($rs);
     }
 
     #[Route('/books/{id}', name: 'book_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
     public function bookDelete(int $id): JsonResponse {
         // $error = '';
-        $rs = [];
         $this->bookDao->bookDelete(['id' => $id]);
-        $rs["code"] = "200";
-        $rs["message"] = "Book {$id} wurde gelöscht";
+
+        $rs = [
+            "code"    => "200",
+            "message" => "Book {$id} wurde gelöscht"
+        ];
         return $this->json($rs);
     }
+    
 }
