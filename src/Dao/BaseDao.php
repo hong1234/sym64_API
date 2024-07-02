@@ -23,13 +23,18 @@ class BaseDao {
         // $resultSet = $this->conn->executeQuery($sql, $parr);
         // return $resultSet;
 
+        // $row = $this->conn->executeQuery($sql, $parr)->fetchAssociative();
+
         $result_array = $this->conn->executeQuery($sql, $parr)->fetchAllAssociative();
         return $result_array;
     }
 
     public function doSQL($sql, $parr=[]) {
-        $stmt = $this->conn->prepare($sql);
-        $rowCount = $stmt->executeStatement($parr); // returns the affected rows count
+        // $stmt = $this->conn->prepare($sql);
+        // $rowCount = $stmt->executeStatement($parr); // returns the affected rows count
+        // return $rowCount;
+
+        $rowCount = $this->conn->executeStatement($sql, $parr); // returns the affected rows count
         return $rowCount;
     }
 }
