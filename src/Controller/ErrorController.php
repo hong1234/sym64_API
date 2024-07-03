@@ -12,8 +12,8 @@ class ErrorController extends AbstractController {
     
     public function show(FlattenException $exception, DebugLoggerInterface $logger = null){
 
-        $rs["status"] = [
-            "statuscode" => $exception->getStatusCode(), 
+        $rs = [
+            "code" => $exception->getStatusCode(), 
             "message" => $exception->getStatusText(),
             "error" => $exception->getStatusCode()
         ];

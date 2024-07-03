@@ -22,4 +22,9 @@ class AccountDao extends BaseDao {
         $sql = "SELECT * FROM user_account WHERE username = :username";
         return $this->doQuery($sql, $params);
     }
+
+    public function getAccount(iterable $params=[]) {
+        $sql = "SELECT * FROM user_account WHERE id = :id";
+        return $this->doQuery($sql, $params);
+    }
 }

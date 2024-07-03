@@ -18,18 +18,6 @@ class AccountController extends AbstractController {
         $this->accountDao = $acDao;
     }
 
-    #[Route('/account/{id}', name: 'acc_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
-    public function accountDelete(int $id): JsonResponse {
-        // $error = '';
-        $this->accountDao->accountDelete(['id' => $id]);
-        
-        $rs = [
-            "code"    => "200",
-            "message" => "Account {$id} wurde gelöscht"
-        ];
-        return $this->json($rs);
-    }
-
     #[Route('/account/insert', name: 'acc_insert', methods: ['POST'])]
     public function accountInsert(Request $request): JsonResponse {
         $error = '';
@@ -60,27 +48,31 @@ class AccountController extends AbstractController {
         return $this->json($rs);
     }
 
-    #[Route('/account/filter', name: 'acc_filter')]
-    public function accFilter() : JsonResponse {  
-        $params = [
-            "username" => "poper"
-        ];
+    #[Route('/account/{id}', name: 'acc_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
+    public function accountDelete(int $id): JsonResponse {
+        $rs = [];
 
-        // $result = $this->accountDao->accountFilter($params);
-        // $result_array = $result->fetchAllAssociative();
+        $result_array = $this->bookDao->getAccount(['id' => $id]);
+        if(count($result_array)>0) {
 
-        $result_array = $this->accountDao->accountFilter($params);
-
-        $rs = [
-            "code" => "200",
-            "data" => $result_array
-        ];
+            $this->accountDao->accountDelete(['id' => $id]);
+            $rs = [
+                "code"    => "200",
+                "message" => "Account {$id} wurde gelöscht"
+            ];
+            
+        } else {
+            $rs = [
+                "code"    => "401",
+                "message" => "Book {$id} dont exist"
+            ];
+        }
+        
         return $this->json($rs);
     }
 
-    #[Route('/account', name: 'acc_all')]
+    #[Route('/account', name: 'acc_all', methods: ['GET'])]
     public function accAll() : JsonResponse { 
-        // $result_array = $this->accountDao->accountAll()->fetchAllAssociative();
         $result_array = $this->accountDao->accountAll();
 
         $rs = [
@@ -90,10 +82,28 @@ class AccountController extends AbstractController {
         return $this->json($rs);
     }
 
-    #[Route('/lucky/number/{max}', name: 'lucky_number')]
-    public function number(int $max): JsonResponse {
-        $number  = random_int(0, $max);
-        return $this->json(['number1' => $number]);
-    }
+    // #[Route('/account/filter', name: 'acc_filter')]
+    // public function accFilter() : JsonResponse {  
+    //     $params = [
+    //         "username" => "poper"
+    //     ];
+
+    //     // $result = $this->accountDao->accountFilter($params);
+    //     // $result_array = $result->fetchAllAssociative();
+
+    //     $result_array = $this->accountDao->accountFilter($params);
+
+    //     $rs = [
+    //         "code" => "200",
+    //         "data" => $result_array
+    //     ];
+    //     return $this->json($rs);
+    // }
+
+    // #[Route('/lucky/number/{max}', name: 'lucky_number')]
+    // public function number(int $max): JsonResponse {
+    //     $number  = random_int(0, $max);
+    //     return $this->json(['number1' => $number]);
+    // }
 
 }
