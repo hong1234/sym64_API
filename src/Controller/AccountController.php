@@ -52,7 +52,7 @@ class AccountController extends AbstractController {
     public function accountDelete(int $id): JsonResponse {
         $rs = [];
 
-        $result_array = $this->bookDao->getAccount(['id' => $id]);
+        $result_array = $this->accountDao->getAccount(['id' => $id]);
         if(count($result_array)>0) {
 
             $this->accountDao->accountDelete(['id' => $id]);
