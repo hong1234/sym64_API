@@ -18,8 +18,8 @@ class BookController extends AbstractController {
         $this->bookDao = $bDao;
     }
 
-    #[Route('/books/insert', name: 'book_insert', methods: ['POST'])]
-    public function bookInsert(Request $request): JsonResponse {
+    #[Route('/books', name: 'book_add', methods: ['POST'])]
+    public function bookAdd(Request $request): JsonResponse {
         $error = '';
         $rs = [];
 
@@ -58,7 +58,7 @@ class BookController extends AbstractController {
         return $this->json($rs);
     }
 
-    #[Route('/books/{id}/update', name: 'book_update', methods: ['PUT'])]
+    #[Route('/books/{id}', name: 'book_update', methods: ['PUT'])]
     public function bookUpdate(int $id, Request $request): JsonResponse {
         $error = '';
         $rs = [];

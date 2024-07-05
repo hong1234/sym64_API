@@ -18,8 +18,8 @@ class AccountController extends AbstractController {
         $this->accountDao = $acDao;
     }
 
-    #[Route('/account/insert', name: 'acc_insert', methods: ['POST'])]
-    public function accountInsert(Request $request): JsonResponse {
+    #[Route('/account', name: 'acc_add', methods: ['POST'])]
+    public function accountAdd(Request $request): JsonResponse {
         $error = '';
         $rs = [];
 
